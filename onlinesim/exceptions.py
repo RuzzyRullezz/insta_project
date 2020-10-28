@@ -1,0 +1,2 @@
+class NoSmsCode(RuntimeError):
+    pass

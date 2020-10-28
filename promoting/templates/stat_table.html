@@ -1,0 +1,27 @@
+{% load startswith %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>Статистика по ботам</title>
+</head>
+<body>
+<table border="1" cellpadding="3" cellspacing="3">
+<tr>
+    {% for header in headers %}
+        <th>{{ header }}</th>
+    {% endfor %}
+</tr>
+{% for stat in stats %}
+    <tr>
+    {% for detail in stat %}
+        {% if detail|startswith:'#' %}
+            <td bgcolor="{{ detail }}"></td>
+        {% else %}
+            <td>{{ detail }}</td>
+        {% endif %}
+    {% endfor %}
+    </tr>
+{% endfor %}
+</table>
+</body>
+</html>

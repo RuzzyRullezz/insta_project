@@ -1,0 +1,2 @@
+class OldContentDownloadError(RuntimeError):
+    pass

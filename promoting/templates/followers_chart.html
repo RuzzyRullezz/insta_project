@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        {% for profile_data in stats_dict.items  %}
+        (function() {
+            var legend = ['Время', '{{ profile_data.0 }}'];
+            var data = google.visualization.arrayToDataTable([
+                legend
+                {% for row in profile_data.1 %}
+                ,[new Date("{{ row.0.isoformat }}"), {{ row.1 }}]
+                {% endfor %}
+            ]);
+            var options = {
+              title: '{{ title }}'
+            };
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div_{{ forloop.counter }}'));
+            chart.draw(data, options);
+        })();
+        {% endfor %}
+      }
+    </script>
+  </head>
+  <body>
+  {% for k in stats_dict.keys %}
+    <div id="chart_div_{{ forloop.counter }}" style="width: 100%; height: 700px;"></div>
+  {% endfor %}
+  </body>
+</html>
